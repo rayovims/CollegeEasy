@@ -13,15 +13,21 @@
 
   <body>
     <header class="header"><h1>College Made Easy</h1></header>
-    <form 
-        action="/sendPDF" 
-        method="POST" 
-        encrypt="multipart/form-data">
-      <input type="text" name="uname" placeholder="name of class"/>
-      <input type="file" name="mobibit"/>
-      <button type="submit">Submit</button>
-    </form>
-    <!-- <button onClick="upload()">Upload</button> -->
+    <!--
+      <form
+          action="/sendPDF"
+          method="POST"
+          encrypt="multipart/form-data">
+        <input type="text" name="uname" placeholder="name of class"/>
+        <input type="file" name="mobibit"/>
+        <button type="submit">Submit</button>
+      </form>
+    -->
+    <!-- <form -->
+        <!-- enctype="multipart/form-data"> -->
+        <input type="file" id="pdfFile" />
+        <button onClick="upload()">Upload</button>
+    <!-- </form> -->
     <script type="text/javascript" src="./assets/script/logic.js"></script>
   </body>
 </html>
