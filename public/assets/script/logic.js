@@ -32,9 +32,24 @@ document.getElementById("pdfFile").addEventListener("change", function(e) {
   const data = new FormData();
   data.append("file", file);
 
-  var request = new XMLHttpRequest();
-  request.open("POST", "/sendPDF");
-  request.send(file);
+  $.ajax("/sendPDF", {
+    type: "POST",
+    data: data,
+    contentType: false,
+    processData: false
+  }).then(res => {
+    console.log(res)
+  })
+
+  // fetch("/sendPDF", {
+  //   method: "POST",
+  //   body: data
+  // }).then(Response => {
+  //   console.log(Response);
+  // })
+  // var request = new XMLHttpRequest();
+  // request.open("POST", "/sendPDF");
+  // request.send(data);
 })
 
 // document.querySelector("#pdf-upload").addEventListener("change", function(e){
