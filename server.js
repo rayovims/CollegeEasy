@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const pdfUtil = require("pdf-to-text");
+const fs = require("fs");
+const PDFParser = require("j-pdfjson");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
@@ -16,11 +17,21 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.post("/sendPDF", upload.single("pdfFile"), function(req, res, next) {
-    let path = "./" + req.file.path;
+  let path = "./" + req.file.path;
 
-    pdfUtil.pdfToText(path, function(err, pdfFile) {
-        console.log(pdfFile);
-      });
+  var pdfParser = new PDFParser(this, 1);
+  fs.readFile(path, (err, pdfBuffer) => {
+    if (!err) {
+      pdfParser.parseBuffer(pdfBuffer);
+    }
+  });
+
+  pdfParser.on("pdfParser_dataError", errData =>
+    console.error(errData.parserError)
+  );
+  pdfParser.on("pdfParser_dataReady", pdfData => {
+    console.log(pdfParser.getRawTextContent());
+  });
 });
 
 app.get("/getPdf", function(req, res) {
