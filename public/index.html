@@ -23,9 +23,15 @@
         <button type="submit">Submit</button>
       </form>
     -->
-    <form enctype="multipart/form-data">
-      <input type="file" id="pdfFile" name="filePDF" />
-      <button onClick="upload()">Upload</button>
+    <!--
+      <form enctype="multipart/form-data">
+        <input type="file" id="pdfFile" name="filePDF" />
+        <button onClick="upload()">Upload</button>
+      </form>
+    -->
+    <form action="/sendPDF" method="post" enctype="multipart/form-data">
+      <input type="file" name="pdfFile" />
+      <button type="submit">Submit</button>
     </form>
     <script type="text/javascript" src="./assets/script/logic.js"></script>
   </body>

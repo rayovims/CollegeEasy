@@ -24,33 +24,24 @@
 //   });
 // }
 
-document.getElementById("pdfFile").addEventListener("change", function(e) {
-  let file = e.target.files[0];
+// document.getElementById("pdfFile").addEventListener("change", function(e) {
 
-  console.log(file);
+//   let file = e.target.files[0];
 
-  const data = new FormData();
-  data.append("file", file);
+//   console.log(file);
 
-  $.ajax("/sendPDF", {
-    type: "POST",
-    data: data,
-    contentType: false,
-    processData: false
-  }).then(res => {
-    console.log(res)
-  })
+//   const data = new FormData();
+//   data.append("file", file);
 
-  // fetch("/sendPDF", {
-  //   method: "POST",
-  //   body: data
-  // }).then(Response => {
-  //   console.log(Response);
-  // })
-  // var request = new XMLHttpRequest();
-  // request.open("POST", "/sendPDF");
-  // request.send(data);
-})
+//   $.ajax("/sendPDF", {
+//     type: "POST",
+//     data: data,
+//     contentType: false,
+//     processData: false
+//   }).then(res => {
+//     console.log(res)
+//   })
+// })
 
 // document.querySelector("#pdf-upload").addEventListener("change", function(e){
 // 	var canvasElement = document.querySelector("canvas")

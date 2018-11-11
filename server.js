@@ -1,10 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const fs = require("fs");
-const PDFParser = require("j-pdfjson");
-let pdfParser = new PDFParser();
-var multer  = require('multer')
-var upload = multer()
+const pdfUtil = require("pdf-to-text");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
 const port = process.env.PORT || 3000;
 
 var app = express();
@@ -16,13 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-app.post("/sendPDF", function(req, res) {
-    req.on('data', (data) => {
-        console.log(data.toString());
-    })
-    res.on('end', () => {
-        res.send('ok')
-    })
+app.post("/sendPDF", upload.single("pdfFile"), function(req, res, next) {
+    let path = "./" + req.file.path;
+
+    pdfUtil.pdfToText(path, function(err, pdfFile) {
+        console.log(pdfFile);
+      });
 });
 
 app.get("/getPdf", function(req, res) {
