@@ -1,0 +1,26 @@
+{
+  "name": "collegeeasy",
+  "version": "1.0.0",
+  "description": "College made easy",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rayovims/CollegeEasy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rayovims/CollegeEasy/issues"
+  },
+  "homepage": "https://github.com/rayovims/CollegeEasy#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "multer": "^1.4.1",
+    "pdf-to-text": "0.0.7"
+  }
+}
