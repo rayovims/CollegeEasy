@@ -13,8 +13,11 @@
 
   <body>
     <header class="header"><h1>College Made Easy</h1></header>
-    <form action="/sendPDF" method="post" enctype="multipart/form-data">
-      <input type="file" name="pdfFile" /> <button type="submit">Submit</button>
+    <form id="form" action="/sendPDF" enctype="multipart/form-data">
+      <input type="file" name="pdfFile" id="fileData"/> 
+      <input id="fileName" placeholder="Enter Syllabus name"></label>
+      <br>
+      <button id="submit">Submit</button>
     </form>
     <script type="text/javascript" src="./assets/script/logic.js"></script>
   </body>
