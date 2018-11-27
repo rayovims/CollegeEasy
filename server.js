@@ -17,25 +17,36 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+var data = "";
+
 app.post("/sendPDF", upload.single("pdfFile"), function(req, res, next) {
+  data = "";
   var fileName = "./uploads/" + req.body.fileName;
   var path = "./" + req.file.path;
-  console.log(fileName);
+  // console.log(fileName);
   fs.rename(path, fileName, function(err) {
     if (err) throw err;
   });
-  pdfUtil.pdfToText(fileName, function(err, data) {
+  pdfUtil.pdfToText(fileName, function(err, pdf) {
     if (err) throw err;
     var regex = /(October \d+[1 - 31])/g;
-    var temp = data.match(regex);
-    console.log(temp)
+    var temp = pdf.match(regex);
+    // console.log(temp)
     var value = [...new Set(temp)]
-    console.log(value)
-    var test = data.search(value[2]);
-    var test1 = data.search(value[3]);
-    console.log(data.substring(test, test1));
+    // console.log(value)
+    var test = pdf.search(value[1]);
+    var test1 = pdf.search(value[2]);
+    // console.log(test, test1)
+    data = pdf.substring(test, test1);
+    // console.log(data)
+    res.json(data)
   });
 });
+
+app.get("/getPDF", function (req, res) {
+  console.log(data);
+  res.json(data)
+})
 
 // findingDate();
 
@@ -46,19 +57,12 @@ function test() {
     if (err) throw err;
     var regex = /(October \d+[1 - 31])/g;
     var temp = data.match(regex);
-    // console.log(temp)
-    var value = [];
-    for (let i = 0; i < temp.length; i++) {
-      if (temp[i] == temp[i + 1]) {
-        temp[i + 1] = temp[i];
-      }
-      value.push(temp[i]);
-    }
-    console.log(value);
-    var test = data.search(temp[1]);
-    var test1 = data.search(temp[3]);
-    console.log(test);
-    console.log(test1);
+    console.log(temp)
+    var value = [...new Set(temp)]
+    console.log(value)
+    var test = data.search(value[2]);
+    var test1 = data.search(value[3]);
+    console.log(test, test1)
     console.log(data.substring(test, test1));
   });
 }
@@ -91,3 +95,4 @@ app.get("/getPdf", function(req, res) {
 app.listen(port, function() {
   console.log(`App listening on port ${port}`);
 });
+
